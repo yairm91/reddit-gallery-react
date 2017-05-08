@@ -4,12 +4,10 @@ class Image extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <a href={`//${this.props.image.post}`} target="_blank">
+        <a className="container" href={`//${this.props.image.post}`} target="_blank">
           <img className="image" src={this.props.image.url} />
           <div className="title">{this.props.image.title}</div>
         </a>
-      </div>
     );
   }
 }

@@ -12,12 +12,12 @@ class Gallery extends React.Component {
     this.state = {
       loading: true,
       items: [],
-      subreddit: "aww",
+      subreddit: "pics",
     };
   }
 
   componentWillMount() {
-    window.reddit.hot(this.state.subreddit).limit(6).fetch(this.fetchCallback);
+    window.reddit.hot(this.state.subreddit).limit(8).fetch(this.fetchCallback);
 
   }
   setSubreddit(text) {
@@ -28,7 +28,7 @@ class Gallery extends React.Component {
   fetchCallback(res) {
     const items = res.data.children.map((post) => ({
       title: post.data.title,
-      url: post.data.url,
+      url: post.data.preview.images[0].source.url,
       post: `www.reddit.com/${post.data.permalink}`,
     }));
 
