@@ -1,27 +1,54 @@
 import React from 'react';
+import reddit from 'reddit.js';
+import Image from './image';
+import TextField from './TextField';
 
 class Gallery extends React.Component {
+  constructor(props) {
+    super(props);
 
-
-  renderImage(imageUrl) {
-      return (
-        <div>
-          <img src={imageUrl} />
-        </div>
-      );
-    }
-
-    render() {
-      return (
-        <div className="gallery">
-          <div className="images">
-            {this.props.imageUrls.map(imageUrl => this.renderImage(imageUrl))}
-          </div>
-        </div>
-      );
-    }
+    this.fetchCallback = this.fetchCallback.bind(this);
+    this.setSubreddit = this.setSubreddit.bind(this);
+    this.state = {
+      loading: true,
+      items: [],
+      subreddit: "aww",
+    };
   }
-  Gallery.propTypes = {
-    imageUrls: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-  };
-  export default Gallery;
+
+  componentWillMount() {
+    window.reddit.hot(this.state.subreddit).limit(6).fetch(this.fetchCallback);
+
+  }
+  setSubreddit(text) {
+    this.setState({
+      subreddit: text,
+    })
+  }
+  fetchCallback(res) {
+    const items = res.data.children.map((post) => ({
+      title: post.data.title,
+      url: post.data.url,
+      post: `www.reddit.com/${post.data.permalink}`,
+    }));
+
+    this.setState({
+      loading: false,
+      items,
+    });
+  }
+
+  render() {
+    return (
+      <div className="gallery">
+        <TextField/>
+        {this.state.loading
+          ? <div class="loader">Loading...</div>
+          : this.state.items.map(item => <Image image={item} />)
+        }
+      </div>
+    );
+  }
+}
+
+export default Gallery;
