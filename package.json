@@ -1,5 +1,6 @@
 {
   "name": "gallery-for-reddit",
+  "homepage": "https://yairm91.github.io/reddit-gallery-react/",
   "version": "1.0.0",
   "description": "This is a sample react reddit image gallery.",
   "main": "index.js",
@@ -22,5 +23,8 @@
     "webpack": "^2.5.1",
     "webpack-dev-middleware": "^1.10.0",
     "reddit.js": "^0.1.3"
+  },
+  "devDependencies": {
+    "gh-pages": "^1.0.0"
   }
 }
