@@ -1,4 +1,5 @@
 const path = require('path');
+var GhPagesWebpackPlugin = require('gh-pages-webpack-plugin');
 
 module.exports = {
   context: path.join(__dirname, 'src'),
@@ -25,4 +26,16 @@ module.exports = {
       path.join(__dirname, 'node_modules'),
     ],
   },
+  plugins: [
+      new GhPagesWebpackPlugin({
+          path: path.join(__dirname, 'www'),
+          options: {
+              message: 'Update Home Page',
+              user: {
+                  name: 'Yair M',
+                  email: 'yairmendelovich@gmail.com'
+              }
+          }
+      })
+  ]
 };

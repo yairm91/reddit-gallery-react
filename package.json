@@ -5,7 +5,8 @@
   "description": "This is a sample react reddit image gallery.",
   "main": "index.js",
   "scripts": {
-    "compile": "webpack",
+    "deploy" : "npm run build&&gh-pages -d build",
+    "build": "webpack",
     "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
