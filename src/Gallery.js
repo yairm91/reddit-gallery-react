@@ -1,6 +1,6 @@
 import React from 'react';
 import reddit from 'reddit.js';
-import Image from './image';
+import Image from './Image';
 import TextField from './TextField';
 
 class Gallery extends React.Component {
