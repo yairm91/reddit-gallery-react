@@ -8,6 +8,7 @@ class Gallery extends React.Component {
     super(props);
 
     this.fetchCallback = this.fetchCallback.bind(this);
+    this.updatePics = this.updatePics.bind(this);
     this.state = {
       loading: true,
       items: [],
@@ -16,19 +17,25 @@ class Gallery extends React.Component {
   }
 
   componentDidMount() {
-    window.reddit.hot(this.state.subreddit).limit(8).fetch(this.fetchCallback);
+    this.updatePics(this.state.subreddit);
 
   }
 
-
-  componentDidUpdate() {
-    window.reddit.hot(this.state.subreddit).limit(8).fetch(this.fetchCallback);
-
+  updatePics(sub){
+    window.reddit.hot(sub).limit(9).fetch(this.fetchCallback);
+    return false;
   }
+
   fetchCallback(res) {
+    if (res.data == null) {
+      alert("Invalid Subreddit, try again!");
+      return;
+    }
     const items = res.data.children.map((post) => ({
       title: post.data.title,
-      url: post.data.preview.images[0].source.url,
+      url: post.data.preview
+            ? post.data.preview.images[0].source.url
+            : "No Image",
       post: `www.reddit.com/${post.data.permalink}`,
     }));
 
@@ -42,9 +49,7 @@ class Gallery extends React.Component {
     return (
       <div className="gallery">
         <TextField
-        value={this.state.subreddit}
-        subreddit={this.state.subreddit}
-        onFilterTextInput={this.handleKeyPress}
+        updatePics={this.updatePics}
         />
         {this.state.loading
           ? <div class="loader">Loading...</div>

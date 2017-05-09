@@ -4,37 +4,35 @@ class TextField extends React.Component {
 
   constructor(props) {
       super(props);
-      // this.state = {value: ''};
+      this.state = {value: ''};
+      this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleChange = this.handleChange.bind(this);
 
-      this.handleKeyPress = this.handleKeyPress.bind(this);
+
     }
-    handleKeyPress(e) {
-        if (e.key === 'Enter') {
-          this.props.onFilterTextInput(e.target.value);
-          console.log('pressed');
-        }
-      }
+  handleChange(event) {
+     this.setState({value: event.target.value});
+   }
 
-    // handleFilterTextInputChange(e) {
-    //   this.props.onFilterTextInput(e.target.value);
-    // }
-
-  // handleChange(event) {
-  //    this.setState({value: event.target.value});
-  //  }
-  //
-  //  onChange={this.handleChange}
+  handleSubmit(event) {
+      this.props.updatePics(this.state.value);
+      event.preventDefault();
+    }
 
   render() {
     return (
       <div className="textbox">
-        <form>
-        <input type="text" onChange={this.handleKeyPress} className="subreddit" placeholder="type reddit"></input>
+        <form onSubmit={this.handleSubmit}>
+        <input type="text" value={this.state.value} onChange={this.handleChange}  className="subreddit" placeholder="type reddit"></input>
         </form>
       </div>
     );
   }
 }
+
+TextField.propTypes = {
+  updatePics: React.PropTypes.func.isRequired,
+};
 
 
 export default TextField;
