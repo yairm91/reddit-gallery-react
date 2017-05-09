@@ -12,7 +12,7 @@ class Gallery extends React.Component {
     this.state = {
       loading: true,
       items: [],
-      subreddit: "pics",
+      subreddit: "cats",
     };
   }
 
